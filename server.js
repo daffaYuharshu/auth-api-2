@@ -29,5 +29,5 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(router);
 
 app.listen(port, () => {
-  console.log(`Server Listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
