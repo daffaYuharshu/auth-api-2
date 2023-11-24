@@ -3,35 +3,36 @@ const bcrypt = require('bcrypt');
 const { nanoid } = require("nanoid");
 
 const register = async (req, res) => {
-    const id = nanoid(16);
+    const userId = 'user-' + nanoid(12);
     const { username, email, password } = req.body;
 
-    // const usernameisExist = Users.find(user => user.username === username);
-    // const emailisExist = Users.find(user => user.email === email);
+    const usernameIsExist = await Users.findOne({
+        where: { username: username },
+    });
+    const emailIsExist = await Users.findOne({ where: { email: email } });
+    
 
-    // // check username
-    // if (usernameisExist) {
-    //     return res.status(400).send({
-    //         "error": true,
-    //         "message": "username has been used"
-    //     });
-    // }
+    if (usernameIsExist) {
+        return res.status(400).send({
+        error: true,
+        message: "Username has been used",
+        });
+    }
 
-    // // check email
-    // if (emailisExist) {
-    //     return res.status(400).send({
-    //         "error": true,
-    //         "message": 'email has been used'
-    //     });
-    // }
+    if (emailIsExist) {
+        return res.status(400).send({
+        error: true,
+        message: "Email has been used",
+        });
+    }
 
-    // // check password
-    // if (password.length < 8) {
-    //     return res.status(400).send({
-    //         "error": true,
-    //         "message": 'password must be at least 8 characters'
-    //     });
-    // }
+    // check password length
+    if (req.body.password.length < 8) {
+        return res.status(400).send({
+        error: true,
+        message: "Password must be at least 8 characters",
+        });
+    }
 
     // encrypt password
     const salt = await bcrypt.genSalt();
@@ -40,6 +41,7 @@ const register = async (req, res) => {
     try {
         // push data to database
         await Users.create({
+            id: userId,
             username: username,
             email: email,
             password: hashedPassword
