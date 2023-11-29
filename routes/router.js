@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const getUsers = require('../controllers/getUsers');
 const register = require('../controllers/register');
 const login = require("../controllers/login");
@@ -9,7 +10,11 @@ const logout = require('../controllers/logout');
 const router =  express.Router();
 
 router.get('/users', verifyToken, getUsers);
-router.post('/users', register); // create account
+router.post('/users', [
+    check('name', 'Invalid name').notEmpty(),
+    check('email', 'Invalid email').isEmail(),
+    check('password', 'Password must be at least 8 characters').isLength({min: 8})
+] ,register); // create account
 router.post('/login', login); // login
 router.get('/token', refreshToken); // refreshToken
 router.delete('/logout', logout); // logout

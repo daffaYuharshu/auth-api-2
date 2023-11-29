@@ -9,7 +9,7 @@ const getUsers = async(req, res) => {
             where: {
                 token: refreshToken
             },
-            attributes: ['id','username','email']
+            attributes: ['id','name','email']
         });
         
         if(!user) return res.sendStatus(204);
