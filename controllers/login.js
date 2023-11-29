@@ -6,7 +6,7 @@ const login = async (req, res) => {
     try {
         const user = await Users.findOne({
             where:{
-                username: req.body.username
+                email: req.body.email
             }
         });
 
@@ -14,16 +14,16 @@ const login = async (req, res) => {
 
         if(!correctPassword) return res.status(400).json({
             "error": true,
-            "message": 'Wrong username or password. Please try again'
+            "message": 'Wrong email or password. Please try again'
         })
 
         const userId = user.id;
-        const username = user.username;
+        const name = user.name;
         const email = user.email;
-        const accessToken = jwt.sign({userId, username, email}, process.env.ACCESS_TOKEN_SECRET,{
+        const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
             expiresIn: '20s'
         });
-        const refreshToken = jwt.sign({userId, username, email}, process.env.REFRESH_TOKEN_SECRET,{
+        const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
             expiresIn: '1d'
         });
 
@@ -44,7 +44,7 @@ const login = async (req, res) => {
             "message": "success",
             "loginResult": {
                 "userId": userId,
-                "username": username,
+                "email": email,
                 "token": accessToken
             }
         });
@@ -52,7 +52,7 @@ const login = async (req, res) => {
     } catch (error) {
         res.status(404).json({
             "error": true,
-            "message": 'Wrong username or password. Please try again'
+            "message": 'Wrong email or password. Please try again'
         });
     }
 };
