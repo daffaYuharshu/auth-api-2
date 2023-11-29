@@ -8,7 +8,7 @@ const Users = require("./models/Users");
 
 dotenv.config();
 const app = express();
-const port = 8080;
+const port = 3000;
 
 try {
   db.authenticate();
@@ -20,7 +20,7 @@ try {
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:8080",
+    origin: "http://localhost:3000",
   })
 );
 app.use(cookieParser());
