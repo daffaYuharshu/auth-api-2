@@ -9,7 +9,7 @@ const register = async (req, res) => {
     const errors = validationResult(req);
     
     if(!errors.isEmpty()){
-        return res.json(errors);
+        return res.status(400).json(errors);
     }
 
     const emailIsExist = await Users.findOne({ where: { email: email } });
@@ -22,7 +22,7 @@ const register = async (req, res) => {
 
     // encrypt password
     const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
         // push data to database
