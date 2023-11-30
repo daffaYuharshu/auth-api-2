@@ -22,9 +22,68 @@ Ini merupakan sebuah API yang menyediakan fungsi autentikasi pengguna.
       "message": "account has been created"
     }
     ```
+- Jika email sudah digunakan, server akan mengembalikan respons :
+  - **Status Code** : 400
+  - **Response Body** : 
+    ```json
+    {
+      "error" : true,
+      "message" : "Email has been used"
+    }
+    ```
+- Jika field nama kosong (tidak di input), server akan mengembalikan respons :
+  - **Status code** : 400
+  - **Respons Body** :
+    ```json
+    {
+    "errors": [
+        {
+            "type": "field",
+            "value": "",
+            "msg": "Invalid name",
+            "path": "name",
+            "location": "body"
+        }
+      ]
+    }
+    ```
+- Jika format penulisan email salah, server akan mengambalikan respons :
+  - **Status Code** : 400
+  - **Respons Body** :
+    ```json
+    {
+    "errors": [
+        {
+            "type": "field",
+            "value": "windahgmail.com",
+            "msg": "Invalid email",
+            "path": "email",
+            "location": "body"
+        }
+      ]
+    }
+    ```
 
+- Jika jumlah karakter dalam password kurang dari 8, server akan mengembalikan respons :
+  - **Status Code** : 400
+  - **Respons Body** :
+    ```json
+    {
+    "errors": [
+        {
+            "type": "field",
+            "value": "windah1",
+            "msg": "Password must be at least 8 characters",
+            "path": "password",
+            "location": "body"
+        }
+      ]
+    }
+    ```
+    
 ## Get Akun
 - **Metode** : GET
+- **Headers** : Authorization Bearer Token
 - **URL** : **'/users'**
 - Server akan mengembalikan respons sebagai berikut :
   - **Status Code** : 200
