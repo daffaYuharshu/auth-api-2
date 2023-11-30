@@ -9,7 +9,7 @@ const register = async (req, res) => {
     const errors = validationResult(req);
     
     if(!errors.isEmpty()){
-        return res.json(errors);
+        return res.status(400).json(errors);
     }
 
     const emailIsExist = await Users.findOne({ where: { email: email } });
