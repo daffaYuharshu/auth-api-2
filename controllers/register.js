@@ -22,7 +22,7 @@ const register = async (req, res) => {
 
     // encrypt password
     const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
         // push data to database
