@@ -38,6 +38,12 @@ const login = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
             // secure: true
         })
+        
+        res.cookie('userId', userId, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+            // secure: true
+        })
 
         res.json({
             "error": false,

@@ -12,7 +12,7 @@ const port = 5000;
 
 try {
   db.authenticate();
-  console.log("Database Connected..");
+  console.log("Database Connected");
 } catch (error) {
   console.error(error);
 }
