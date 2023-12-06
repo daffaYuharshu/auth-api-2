@@ -14,8 +14,12 @@ const getUsers = async(req, res) => {
         
         if(!user) return res.sendStatus(404);
         res.json(user);
+        
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            "error": true,
+            "message": error.message
+        });
     }
 };
 

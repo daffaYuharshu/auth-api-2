@@ -9,9 +9,12 @@ const login = async (req, res) => {
                 email: req.body.email
             }
         });
+        if(!user) return res.status(400).json({
+            "error": true,
+            "message": 'Wrong email or password. Please try again'
+        })
 
         const correctPassword = await bcrypt.compare(req.body.password, user.password)
-
         if(!correctPassword) return res.status(400).json({
             "error": true,
             "message": 'Wrong email or password. Please try again'
@@ -21,7 +24,7 @@ const login = async (req, res) => {
         const name = user.name;
         const email = user.email;
         const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn: '20s'
+            expiresIn: '900s'
         });
         const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
             expiresIn: '1d'
@@ -56,9 +59,9 @@ const login = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             "error": true,
-            "message": 'Wrong email or password. Please try again'
+            "message": error.message
         });
     }
 };
