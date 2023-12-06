@@ -2,8 +2,9 @@ const Users = require("../models/Users");
 
 const logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
+    const userId = req.cookies.userId;
     
-    if(!refreshToken && !req.cookies.userId) return res.sendStatus(204);
+    if(!refreshToken && !userId) return res.sendStatus(204);
     const user = await Users.findOne({
         where: {
             token: refreshToken
@@ -11,10 +12,10 @@ const logout = async (req, res) => {
     });
 
     if(!user) return res.sendStatus(204);
-    const userId = user.id;
+    const id = user.id;
     await Users.update({token: null}, {
         where: {
-            id: userId
+            id: id
         }
     }); 
 
