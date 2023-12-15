@@ -129,7 +129,7 @@ Ini merupakan sebuah API yang menyediakan fungsi autentikasi pengguna.
 
 ## Refresh Token
 - **Metode** : GET
-- **URL** : **'/token'**
+- **URL** : **'/token/{id}'**
 - Server akan mengembalikan respons sebagai berikut :
   - **Status Code** : 200
   - **Respons Body** :
@@ -141,6 +141,7 @@ Ini merupakan sebuah API yang menyediakan fungsi autentikasi pengguna.
 
 ## Logout
 - **Metode** : DELETE
+- **Headers** : Authorization Bearer Token
 - **URL** : **'/logout'**
 - Server akan mengembalikan respons sebagai berikut :
   - **Status Code** : 200

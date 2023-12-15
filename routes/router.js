@@ -16,7 +16,7 @@ router.post('/users', [
     check('password', 'Password must be at least 8 characters').isLength({min: 8})
 ] ,register); // create account
 router.post('/login', login); // login
-router.get('/token', refreshToken);
-router.delete('/logout', logout); // logout
+router.get('/token/:id', refreshToken);
+router.delete('/logout', verifyToken, logout); // logout
 
 module.exports = router;
