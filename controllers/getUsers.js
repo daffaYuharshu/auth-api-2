@@ -2,12 +2,9 @@ const Users = require("../models/Users");
 
 const getUsers = async(req, res) => {
     try {
-        const refreshToken = req.cookies.refreshToken;
-
-        if(!refreshToken) return res.status(401);
         const user = await Users.findOne({
             where: {
-                token: refreshToken
+                id: req.userId
             },
             attributes: ['id','name','email']
         });
