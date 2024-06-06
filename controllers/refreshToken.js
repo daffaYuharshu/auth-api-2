@@ -11,7 +11,7 @@ const refreshToken = async(req, res) => {
         });
         
         if(!user) return res.sendStatus(403);
-        const refreshToken = user.token;
+        const refreshToken = user.refresh_token;
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err) return res.sendStatus(403);
             const userId = user.id;
