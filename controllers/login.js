@@ -30,7 +30,7 @@ const login = async (req, res) => {
             expiresIn: '1d'
         });
 
-        await Users.update({token: refreshToken}, {
+        await Users.update({refresh_token: refreshToken}, {
             where: {
                 id: userId
             } 
