@@ -127,7 +127,7 @@ Ini merupakan sebuah API yang menyediakan fungsi autentikasi pengguna.
     "message": "Wrong email or password. Please try again"
   }
 
-## Resfresh Token
+## Refresh Token
 - **Metode** : GET
 - **URL** : **'/token/{id}'**
 - Server akan mengembalikan respons sebagai berikut :
